@@ -5,6 +5,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, RegisterSerializer
 
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (permissions.AllowAny,)
@@ -19,6 +20,7 @@ class RegisterView(generics.CreateAPIView):
             "token": token.key
         })
 
+
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -30,6 +32,7 @@ class CustomAuthToken(ObtainAuthToken):
             'token': token.key,
             'user': UserSerializer(user).data
         })
+
 
 class UserProfileView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticated,)
