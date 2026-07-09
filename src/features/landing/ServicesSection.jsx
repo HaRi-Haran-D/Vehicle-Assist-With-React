@@ -1,27 +1,29 @@
+import { Wrench, Settings, Search, PhoneCall } from 'lucide-react';
+
 export function ServicesSection() {
   const services = [
     {
-      title: 'Bike-Taxi',
-      description: 'Beat traffic, ride quicker',
-      image: '/assets/bike_taxi_1783519431068.png',
+      title: 'General Service',
+      description: 'Comprehensive checkup and oil change',
+      icon: Settings,
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Auto',
-      description: 'Everyday autos, made easy',
-      image: '/assets/auto_rickshaw_1783519442146.png',
+      title: 'Engine Repair',
+      description: 'Expert diagnostics and engine overhauls',
+      icon: Wrench,
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Cab',
-      description: 'Comfort for every journey',
-      image: '/assets/cab_car_1783519453146.png',
+      title: 'Inspections',
+      description: 'Pre-purchase and safety vehicle inspections',
+      icon: Search,
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Parcel',
-      description: 'Quick, secure & insured deliveries',
-      image: '/assets/parcel_box_1783519465989.png',
+      title: 'Roadside Assist',
+      description: '24/7 emergency towing and support',
+      icon: PhoneCall,
       bgColor: 'bg-secondary'
     }
   ];
@@ -44,12 +46,8 @@ export function ServicesSection() {
                 <h3 className="text-2xl sm:text-3xl font-bold text-brandDark mb-2 font-display">{service.title}</h3>
                 <p className="text-brandDark/70 font-medium text-sm sm:text-base">{service.description}</p>
               </div>
-              <div className="w-28 h-28 sm:w-40 sm:h-40 relative flex-shrink-0 z-10">
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="w-full h-full object-contain drop-shadow-xl group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500"
-                />
+              <div className="w-24 h-24 sm:w-32 sm:h-32 relative flex-shrink-0 z-10 flex items-center justify-center text-brandDark/80 group-hover:text-brandDark transition-colors">
+                <service.icon size={80} strokeWidth={1.5} className="group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500" />
               </div>
             </div>
           ))}

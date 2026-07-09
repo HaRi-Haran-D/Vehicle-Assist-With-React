@@ -5,9 +5,6 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-brandYellow rounded-xl flex items-center justify-center font-bold text-brandDark text-xl">
-                VR
-              </div>
               <span className="font-display font-bold text-2xl tracking-tight">Vehicle<span className="text-brandYellow">Repair</span></span>
             </div>
             <p className="text-white/60 mb-6 leading-relaxed">
@@ -28,7 +25,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h4 className="font-bold text-lg mb-6">Company</h4>
             <ul className="space-y-4 text-white/60 font-medium">
@@ -38,7 +35,7 @@ export function Footer() {
               <li><a href="#" className="hover:text-brandYellow transition-colors">Press</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-bold text-lg mb-6">Products</h4>
             <ul className="space-y-4 text-white/60 font-medium">
@@ -48,7 +45,7 @@ export function Footer() {
               <li><a href="#" className="hover:text-brandYellow transition-colors">Parcel</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-bold text-lg mb-6">Legal</h4>
             <ul className="space-y-4 text-white/60 font-medium">
@@ -59,7 +56,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-white/40 text-sm font-medium">
           <p>&copy; {new Date().getFullYear()} VehicleRepair Inc. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">

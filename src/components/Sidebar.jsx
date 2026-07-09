@@ -1,19 +1,38 @@
 import { motion } from 'framer-motion';
-import { Home, Car, Wrench, MapPin, Clock, AlertTriangle, MessageSquare, Settings, User } from 'lucide-react';
+import { Home, Car, Wrench, MapPin, Clock, AlertTriangle, MessageSquare, Settings, User, Briefcase, IndianRupee, LogOut } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const menuItems = [
-  { icon: Home, label: 'Dashboard', id: 'dashboard' },
-  { icon: Car, label: 'My Vehicles', id: 'vehicles' },
-  { icon: Wrench, label: 'Requests', id: 'requests' },
-  { icon: MapPin, label: 'Mechanics', id: 'mechanics' },
-  { icon: Clock, label: 'History', id: 'history' },
-  { icon: AlertTriangle, label: 'Emergency', id: 'emergency', danger: true },
-  { icon: MessageSquare, label: 'Messages', id: 'messages' },
-];
+const getMenuItems = (role) => {
+  if (role === 'MECHANIC') {
+    return [
+      { icon: Home, label: 'Dashboard', id: 'dashboard' },
+      { icon: Briefcase, label: 'Job Board', id: 'job_board' },
+      { icon: Wrench, label: 'Active Jobs', id: 'active_jobs' },
+      { icon: IndianRupee, label: 'Earnings', id: 'earnings' },
+      { icon: MessageSquare, label: 'Messages', id: 'messages' },
+    ];
+  }
+  return [
+    { icon: Home, label: 'Dashboard', id: 'dashboard' },
+    { icon: Car, label: 'My Vehicles', id: 'vehicles' },
+    { icon: Wrench, label: 'Service History', id: 'history' },
+    { icon: MessageSquare, label: 'Messages', id: 'messages' },
+    { icon: AlertTriangle, label: 'Emergency', id: 'emergency', danger: true },
+  ];
+};
 
 export function Sidebar() {
   const [active, setActive] = useState('dashboard');
+  const role = localStorage.getItem('userRole') || 'CUSTOMER';
+  const menuItems = getMenuItems(role);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    navigate('/');
+  };
 
   return (
     <aside className="w-64 h-screen border-r border-borderDark bg-card/30 backdrop-blur-md hidden lg:flex flex-col">
@@ -56,6 +75,10 @@ export function Sidebar() {
         <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-textMuted hover:text-textMain hover:bg-black/5 transition-all">
           <User size={20} />
           <span className="font-medium">Profile</span>
+        </button>
+        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:text-red-600 hover:bg-red-50 transition-all font-medium mt-2">
+          <LogOut size={20} />
+          <span>Logout</span>
         </button>
       </div>
     </aside>

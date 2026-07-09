@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Wrench } from 'lucide-react';
 
 export function EarnSection() {
   return (
@@ -21,7 +21,7 @@ export function EarnSection() {
             </div>
             
             <p className="text-lg md:text-xl text-white/90 font-medium mb-10 max-w-md leading-relaxed">
-              Become a Captain today. Ride when you want, work how you want, and earn on your own terms with zero compromises.
+              Join as a Mechanic today. Work when you want, repair on your own terms, and boost your earnings with zero compromises.
             </p>
             
             <button className="bg-brandYellow text-brandDark px-8 py-4 rounded-full font-bold text-lg hover:bg-brandYellowHover transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(249,201,34,0.4)]">
@@ -33,11 +33,9 @@ export function EarnSection() {
           <div className="md:w-1/2 relative z-10 flex justify-center mt-8 md:mt-0">
              <div className="w-full max-w-md aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center relative p-8 shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-tr from-brandYellow/20 to-transparent rounded-full animate-spin-slow"></div>
-                <img 
-                  src="/assets/bike_taxi_1783519431068.png" 
-                  alt="Earn with us Captain" 
-                  className="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -scale-x-100"
-                />
+                <div className="w-full h-full relative z-10 flex items-center justify-center">
+                  <Wrench size={120} className="text-brandYellow drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" />
+                </div>
              </div>
           </div>
 

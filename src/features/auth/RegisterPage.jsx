@@ -51,9 +51,9 @@ export function RegisterPage() {
 
             {/* Role Selection */}
             <div>
-              <label className="block text-sm font-medium text-textMain mb-2">
+              {/* <label className="block text-sm font-medium text-textMain mb-2">
                 I am a...
-              </label>
+              </label> */}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"

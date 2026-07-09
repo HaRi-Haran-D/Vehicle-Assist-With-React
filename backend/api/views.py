@@ -16,7 +16,7 @@ class RegisterView(generics.CreateAPIView):
         user = User.objects.get(username=response.data['username'])
         token, created = Token.objects.get_or_create(user=user)
         return Response({
-            "user": response.data,
+            "user": UserSerializer(user).data,
             "token": token.key
         })
 
