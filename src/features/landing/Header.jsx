@@ -21,13 +21,16 @@ export function Header() {
             <Link to="/" className="hover:text-brandYellow transition-colors">Home</Link>
             <a href="#services" className="hover:text-brandYellow transition-colors">Services</a>
             <a href="#earn" className="hover:text-brandYellow transition-colors">Earn</a>
-            <Link to="/dashboard" className="hover:text-brandYellow transition-colors">Dashboard</Link>
+            {/* <Link to="/dashboard" className="hover:text-brandYellow transition-colors">Dashboard</Link> */}
           </nav>
 
-          <div className="hidden md:flex">
-            <button className="bg-brandDark text-brandYellow px-6 py-2.5 rounded-full font-semibold hover:bg-black transition-colors shadow-lg shadow-brandDark/20">
-              Download App
-            </button>
+          <div className="hidden md:flex items-center gap-4">
+            <Link to="/login" className="text-brandDark font-semibold hover:text-brandYellow transition-colors">
+              Login
+            </Link>
+            <Link to="/register" className="bg-brandDark text-brandYellow px-6 py-2.5 rounded-full font-semibold hover:bg-black transition-colors shadow-lg shadow-brandDark/20">
+              Register
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -46,10 +49,11 @@ export function Header() {
             <Link to="/" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Home</Link>
             <a href="#services" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Services</a>
             <a href="#earn" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Earn</a>
-            <Link to="/dashboard" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Dashboard</Link>
-            <button className="w-full text-center block px-3 py-2 text-brandYellow bg-brandDark font-semibold rounded-md mt-4">
-              Download App
-            </button>
+            {/* <Link to="/dashboard" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Dashboard</Link> */}
+            <Link to="/login" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md mt-2" onClick={() => setIsOpen(false)}>Login</Link>
+            <Link to="/register" className="w-full text-center block px-3 py-2 text-brandYellow bg-brandDark font-semibold rounded-md mt-2" onClick={() => setIsOpen(false)}>
+              Register
+            </Link>
           </div>
         </div>
       )}

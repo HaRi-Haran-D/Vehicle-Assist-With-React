@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        brandYellow: "#F9C922",
-        brandYellowHover: "#E6B819",
+        brandYellow: "#A5CF83",
+        brandYellowHover: "#8FBC6A",
         brandBlue: "#21436F",
         brandDark: "#1E1E1E",
         primary: "#F8FAFC",
         secondary: "#F1F5F9",
         card: "#FFFFFF",
-        accent: "#F9C922",
+        accent: "#A5CF83",
         neon: "#06B6D4",
         success: "#16A34A",
         warning: "#D97706",
