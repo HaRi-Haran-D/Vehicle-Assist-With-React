@@ -101,3 +101,18 @@ export const addServiceRequest = async (token, requestData) => {
   }
   return response.json();
 };
+
+export const cancelServiceRequest = async (token, requestId) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status: 'CANCELLED' }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to cancel service request');
+  }
+  return response.json();
+};

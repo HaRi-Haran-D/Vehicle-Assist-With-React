@@ -1,17 +1,34 @@
 import { WidgetCard } from '../../components/WidgetCard';
 import { motion } from 'framer-motion';
-import { CheckCircle2, CircleDashed } from 'lucide-react';
+import { CheckCircle2, CircleDashed, X } from 'lucide-react';
 
-const steps = [
-  { label: 'Request Accepted', status: 'completed' },
-  { label: 'Mechanic Travelling', status: 'active' },
-  { label: 'Arriving', status: 'pending' },
-  { label: 'Repair Started', status: 'pending' },
-];
+export function ActiveServiceTimeline({ request, onCancel }) {
+  let steps = [];
+  if (!request || request.status === 'PENDING') {
+    steps = [
+      { label: 'Waiting for Mechanic', status: 'active' },
+      { label: 'Mechanic Accepted', status: 'pending' },
+      { label: 'Mechanic Travelling', status: 'pending' },
+      { label: 'Repair Started', status: 'pending' },
+    ];
+  } else if (request.status === 'IN_PROGRESS') {
+    steps = [
+      { label: 'Waiting for Mechanic', status: 'completed' },
+      { label: 'Mechanic Accepted', status: 'completed' },
+      { label: 'Mechanic Travelling', status: 'active' },
+      { label: 'Repair Started', status: 'pending' },
+    ];
+  } else {
+    steps = [
+      { label: 'Waiting for Mechanic', status: 'completed' },
+      { label: 'Mechanic Accepted', status: 'completed' },
+      { label: 'Mechanic Travelling', status: 'completed' },
+      { label: 'Repair Completed', status: 'completed' },
+    ];
+  }
 
-export function ActiveServiceTimeline() {
   return (
-    <WidgetCard title="Active Service" delay={0.3}>
+    <WidgetCard title={request?.vehicle ? `Active Service: ${request.vehicle.make} ${request.vehicle.model}` : "Active Service"} delay={0.3}>
       <div className="relative mt-4">
         <div className="absolute left-[19px] top-4 bottom-4 w-[2px] bg-borderLight" />
         
@@ -37,6 +54,17 @@ export function ActiveServiceTimeline() {
             </div>
           ))}
         </div>
+        {request && request.status !== 'COMPLETED' && (
+          <div className="mt-8 flex justify-end relative z-10 border-t border-borderLight pt-4">
+            <button
+              onClick={onCancel}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors border border-red-200"
+            >
+              <X size={16} />
+              Cancel Request
+            </button>
+          </div>
+        )}
       </div>
     </WidgetCard>
   );

@@ -41,4 +41,4 @@ class ServiceRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceRequest
         fields = ['id', 'vehicle', 'vehicle_details', 'description', 'location', 'photo', 'status', 'scheduled_date', 'created_at']
-        read_only_fields = ['id', 'created_at', 'status']
+        read_only_fields = ['id', 'created_at']

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, CustomAuthToken, UserProfileView, VehicleListCreateView, VehicleDetailView, ServiceRequestListView
+from .views import RegisterView, CustomAuthToken, UserProfileView, VehicleListCreateView, VehicleDetailView, ServiceRequestListView, ServiceRequestDetailView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('vehicles/', VehicleListCreateView.as_view(), name='vehicle-list-create'),
     path('vehicles/<int:pk>/', VehicleDetailView.as_view(), name='vehicle-detail'),
     path('service-requests/', ServiceRequestListView.as_view(), name='service-request-list'),
+    path('service-requests/<int:pk>/', ServiceRequestDetailView.as_view(), name='service-request-detail'),
 ]

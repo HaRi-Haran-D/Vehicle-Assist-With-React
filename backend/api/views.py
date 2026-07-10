@@ -68,3 +68,10 @@ class ServiceRequestListView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class ServiceRequestDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ServiceRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return ServiceRequest.objects.filter(user=self.request.user)
