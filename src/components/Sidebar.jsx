@@ -18,7 +18,6 @@ const getMenuItems = (role) => {
     { icon: Car, label: 'My Vehicles', id: 'vehicles' },
     { icon: Wrench, label: 'Service History', id: 'history' },
     { icon: MessageSquare, label: 'Messages', id: 'messages' },
-    { icon: AlertTriangle, label: 'Emergency', id: 'emergency', danger: true },
   ];
 };
 
@@ -49,8 +48,8 @@ export function Sidebar() {
             key={item.id}
             onClick={() => setActive(item.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 relative group
-              ${active === item.id 
-                ? (item.danger ? 'text-danger' : 'text-accent') 
+              ${active === item.id
+                ? (item.danger ? 'text-danger' : 'text-accent')
                 : 'text-textMuted hover:text-textMain hover:bg-black/5'}`}
           >
             {active === item.id && (

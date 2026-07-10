@@ -1,7 +1,5 @@
 import { MapWidget } from './MapWidget';
-import { HealthGauge } from './HealthGauge';
 import { ActiveServiceTimeline } from './ActiveServiceTimeline';
-import { EmergencyPanel } from './EmergencyPanel';
 import { VehicleCard } from './VehicleCard';
 
 export function CustomerDashboard() {
@@ -15,20 +13,11 @@ export function CustomerDashboard() {
         <VehicleCard />
       </div>
 
-      {/* Health Gauge */}
-      <div className="col-span-1">
-        <HealthGauge />
-      </div>
-
       {/* Active Service Timeline */}
       <div className="col-span-1 lg:col-span-2">
         <ActiveServiceTimeline />
       </div>
 
-      {/* Emergency Panel */}
-      <div className="col-span-1">
-        <EmergencyPanel />
-      </div>
     </div>
   );
 }
