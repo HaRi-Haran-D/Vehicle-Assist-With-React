@@ -18,7 +18,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center gap-2">
-            <span className="font-display font-bold text-2xl tracking-tight text-brandDark">Vehicle<span className="text-brandYellow">Repair</span></span>
+            <span className="font-display font-bold text-2xl tracking-tight text-brandDark">Vehicle<span className="text-brandYellow">Assist</span></span>
           </div>
 
           {/* Desktop Nav */}
@@ -67,7 +67,7 @@ export function Header() {
             {isAuthenticated && (
               <Link to="/dashboard" className="block px-3 py-2 text-brandDark font-medium hover:bg-secondary rounded-md" onClick={() => setIsOpen(false)}>Dashboard</Link>
             )}
-            
+
             {isAuthenticated ? (
               <button onClick={() => { handleLogout(); setIsOpen(false); }} className="w-full text-left block px-3 py-2 text-red-600 font-medium hover:bg-red-50 rounded-md mt-2">
                 Logout

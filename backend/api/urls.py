@@ -1,8 +1,11 @@
 from django.urls import path
-from .views import RegisterView, CustomAuthToken, UserProfileView
+from .views import RegisterView, CustomAuthToken, UserProfileView, VehicleListCreateView, VehicleDetailView, ServiceRequestListView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', CustomAuthToken.as_view(), name='login'),
     path('profile/', UserProfileView.as_view(), name='profile'),
+    path('vehicles/', VehicleListCreateView.as_view(), name='vehicle-list-create'),
+    path('vehicles/<int:pk>/', VehicleDetailView.as_view(), name='vehicle-detail'),
+    path('service-requests/', ServiceRequestListView.as_view(), name='service-request-list'),
 ]

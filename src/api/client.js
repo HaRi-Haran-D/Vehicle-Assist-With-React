@@ -39,3 +39,41 @@ export const getProfile = async (token) => {
   }
   return response.json();
 };
+
+export const getVehicles = async (token) => {
+  const response = await fetch(`${API_BASE_URL}/vehicles/`, {
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch vehicles');
+  }
+  return response.json();
+};
+
+export const addVehicle = async (token, vehicleData) => {
+  const response = await fetch(`${API_BASE_URL}/vehicles/`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+    body: vehicleData,
+  });
+  if (!response.ok) {
+    throw new Error('Failed to add vehicle');
+  }
+  return response.json();
+};
+
+export const getServiceRequests = async (token) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/`, {
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch service requests');
+  }
+  return response.json();
+};

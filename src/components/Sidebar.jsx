@@ -21,8 +21,7 @@ const getMenuItems = (role) => {
   ];
 };
 
-export function Sidebar() {
-  const [active, setActive] = useState('dashboard');
+export function Sidebar({ active, setActive }) {
   const role = localStorage.getItem('userRole') || 'CUSTOMER';
   const menuItems = getMenuItems(role);
   const navigate = useNavigate();
@@ -36,9 +35,6 @@ export function Sidebar() {
   return (
     <aside className="w-64 h-screen border-r border-borderDark bg-card/30 backdrop-blur-md hidden lg:flex flex-col">
       <div className="p-6 pt-8 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-accent to-neon flex items-center justify-center glow-box">
-          <Car size={20} className="text-white" />
-        </div>
         <span className="font-display font-bold text-xl tracking-tight text-textMain">Vehicle Assist</span>
       </div>
 
