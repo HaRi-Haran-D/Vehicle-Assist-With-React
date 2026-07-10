@@ -55,7 +55,7 @@ export function VehiclesSection() {
       setLicensePlate('');
       setPhoto(null);
     } catch (err) {
-      setError(err.message || 'Failed to add vehicle. License plate might already exist.');
+      setError('Failed to add vehicle. License plate might already exist.');
     }
   };
 
@@ -125,8 +125,8 @@ export function VehiclesSection() {
               <div className="p-6 relative z-10 flex flex-col h-full justify-between">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-2xl font-display font-bold text-textMain">{v.year} {v.make}</h3>
-                    <p className="text-textMain font-medium">{v.model}</p>
+                    <h3 className="text-2xl font-display font-bold text-textMain">Brand:{v.make}</h3>
+                    <p className="text-textMain font-medium">Model:{v.model} Year:{v.year}</p>
                   </div>
                   <span className="px-3 py-1 rounded-full bg-brandDark/10 text-brandDark text-xs font-bold uppercase tracking-wider border border-brandDark/30">
                     {v.license_plate}

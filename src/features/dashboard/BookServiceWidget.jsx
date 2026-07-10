@@ -43,6 +43,10 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
       setError('Please select a vehicle or add one first.');
       return;
     }
+    if (!location) {
+      setError('Please pick a location using the map or button.');
+      return;
+    }
     setSubmitting(true);
     try {
       const formData = new FormData();
@@ -154,7 +158,7 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
                 className="w-full px-3 py-2 border border-borderDark rounded-lg focus:outline-none focus:ring-brandYellow focus:border-brandYellow bg-white text-textMain text-sm"
               >
                 {vehicles.map(v => (
-                  <option key={v.id} value={v.id}>{v.year} {v.make} {v.model} ({v.license_plate})</option>
+                  <option key={v.id} value={v.id}>{v.make} {v.model} ({v.license_plate})</option>
                 ))}
               </select>
             </div>
@@ -172,30 +176,22 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-textMain mb-1">Your Location (Drag map to set)</label>
-              <div className="relative mb-2">
-                <input
-                  required
-                  type="text"
-                  value={location}
-                  onChange={e => setLocation(e.target.value)}
-                  className="w-full pl-3 pr-10 py-2 border border-borderDark rounded-lg focus:outline-none focus:ring-brandYellow focus:border-brandYellow text-sm"
-                  placeholder="E.g. 123 Main St or tap icon to detect"
-                />
+              <label className="block text-sm font-medium text-textMain mb-1">Your Location</label>
+              <div className="flex justify-center gap-2 mb-2">
                 <button
                   type="button"
                   onClick={handleGetLocation}
                   disabled={gettingLocation}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-textMuted hover:text-brandDark transition-colors p-1 bg-transparent"
-                  title="Detect current location"
+                  className="w-100 flex items-center justify-center gap-2 bg-brandDark/5 hover:bg-brandDark/10 text-brandDark px-4 py-2 rounded-lg font-medium transition-colors border border-borderDark"
                 >
                   {gettingLocation ? <Loader2 className="animate-spin text-brandYellow" size={18} /> : <MapPin size={18} />}
+                  {gettingLocation ? 'Detecting Location...' : 'Pick Current Location'}
                 </button>
               </div>
-              <LocationPickerMap 
-                position={mapPosition} 
-                setPosition={setMapPosition} 
-                onPositionChanged={handleMapPositionChanged} 
+              <LocationPickerMap
+                position={mapPosition}
+                setPosition={setMapPosition}
+                onPositionChanged={handleMapPositionChanged}
               />
             </div>
 
