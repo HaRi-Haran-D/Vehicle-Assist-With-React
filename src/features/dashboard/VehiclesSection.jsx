@@ -55,7 +55,7 @@ export function VehiclesSection() {
       setLicensePlate('');
       setPhoto(null);
     } catch (err) {
-      setError('Failed to add vehicle. License plate might already exist.');
+      setError(err.message || 'Failed to add vehicle. License plate might already exist.');
     }
   };
 

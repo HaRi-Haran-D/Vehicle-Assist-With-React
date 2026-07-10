@@ -10,7 +10,7 @@ export function Dashboard() {
 
   return (
     <DashboardLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-      {role === 'MECHANIC' ? <MechanicDashboard activeTab={activeTab} /> : <CustomerDashboard activeTab={activeTab} />}
+      {role === 'MECHANIC' ? <MechanicDashboard activeTab={activeTab} setActiveTab={setActiveTab} /> : <CustomerDashboard activeTab={activeTab} setActiveTab={setActiveTab} />}
     </DashboardLayout>
   );
 }

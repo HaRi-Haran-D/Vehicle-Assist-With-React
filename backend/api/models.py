@@ -35,6 +35,8 @@ class ServiceRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='service_requests')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='service_requests')
     description = models.TextField()
+    location = models.CharField(max_length=255, default='Not specified')
+    photo = models.ImageField(upload_to='service_requests/', null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     scheduled_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

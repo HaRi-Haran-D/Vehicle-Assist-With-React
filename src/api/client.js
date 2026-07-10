@@ -61,7 +61,17 @@ export const addVehicle = async (token, vehicleData) => {
     body: vehicleData,
   });
   if (!response.ok) {
-    throw new Error('Failed to add vehicle');
+    let errorMessage = 'Failed to add vehicle';
+    try {
+      const errorData = await response.json();
+      if (typeof errorData === 'object') {
+        const firstKey = Object.keys(errorData)[0];
+        if (firstKey) {
+          errorMessage = `${firstKey}: ${errorData[firstKey]}`;
+        }
+      }
+    } catch (e) {}
+    throw new Error(errorMessage);
   }
   return response.json();
 };
@@ -74,6 +84,20 @@ export const getServiceRequests = async (token) => {
   });
   if (!response.ok) {
     throw new Error('Failed to fetch service requests');
+  }
+  return response.json();
+};
+
+export const addServiceRequest = async (token, requestData) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+    body: requestData,
+  });
+  if (!response.ok) {
+    throw new Error('Failed to add service request');
   }
   return response.json();
 };
