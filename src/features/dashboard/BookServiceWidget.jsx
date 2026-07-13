@@ -25,7 +25,6 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
       try {
         const data = await getVehicles(token);
         setVehicles(data);
-        if (data.length > 0) setSelectedVehicle(data[0].id);
       } catch (err) {
         console.error(err);
       } finally {
@@ -151,12 +150,12 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
             {message && <div className="text-success bg-success/10 p-3 rounded text-sm">{message}</div>}
 
             <div>
-              <label className="block text-sm font-medium text-textMain mb-1">Select Vehicle</label>
               <select
                 value={selectedVehicle}
                 onChange={e => setSelectedVehicle(e.target.value)}
                 className="w-full px-3 py-2 border border-borderDark rounded-lg focus:outline-none focus:ring-brandYellow focus:border-brandYellow bg-white text-textMain text-sm"
               >
+                <option value="">Select Vehicle</option>
                 {vehicles.map(v => (
                   <option key={v.id} value={v.id}>{v.make} {v.model} ({v.license_plate})</option>
                 ))}
@@ -201,7 +200,7 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
                 type="file"
                 accept="image/*"
                 onChange={e => setPhoto(e.target.files[0])}
-                className="w-full px-3 py-2 border border-borderDark rounded-lg focus:outline-none focus:ring-brandYellow focus:border-brandYellow text-sm text-textMain file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brandDark file:text-brandYellow hover:file:bg-black transition-colors"
+                className="w-100 px-3 py-2 border border-borderDark rounded-lg focus:outline-none focus:ring-brandYellow focus:border-brandYellow text-sm text-textMain file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brandDark file:text-brandYellow hover:file:bg-black transition-colors"
               />
             </div>
 

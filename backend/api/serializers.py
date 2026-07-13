@@ -5,28 +5,31 @@ from .models import UserProfile, Vehicle, ServiceRequest
 
 class UserSerializer(serializers.ModelSerializer):
     role = serializers.CharField(source='profile.role', read_only=True)
+    mobile_number = serializers.CharField(source='profile.mobile_number', read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'role']
+        fields = ['id', 'username', 'email', 'role', 'mobile_number']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     role = serializers.ChoiceField(choices=UserProfile.ROLE_CHOICES, write_only=True)
+    mobile_number = serializers.CharField(write_only=True, required=False, allow_blank=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'role']
+        fields = ['id', 'username', 'email', 'password', 'role', 'mobile_number']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         role = validated_data.pop('role', 'CUSTOMER')
+        mobile_number = validated_data.pop('mobile_number', '')
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data.get('email', ''),
             password=validated_data['password']
         )
-        UserProfile.objects.create(user=user, role=role)
+        UserProfile.objects.create(user=user, role=role, mobile_number=mobile_number)
         return user
 
 class VehicleSerializer(serializers.ModelSerializer):

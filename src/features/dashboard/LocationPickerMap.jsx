@@ -31,13 +31,13 @@ function CenterMap({ position }) {
 }
 
 export function LocationPickerMap({ position, setPosition, onPositionChanged }) {
-  const defaultCenter = [51.505, -0.09]; // Default London or anywhere
-  
+  const defaultCenter = [13.0827, 80.2707]; // Default London or anywhere
+
   return (
     <div className="h-64 w-full rounded-lg overflow-hidden border border-borderDark z-0">
-      <MapContainer 
-        center={position || defaultCenter} 
-        zoom={13} 
+      <MapContainer
+        center={position || defaultCenter}
+        zoom={13}
         style={{ height: '100%', width: '100%', zIndex: 0 }}
       >
         <TileLayer

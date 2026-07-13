@@ -31,7 +31,7 @@ export function ActiveServiceTimeline({ request, onCancel }) {
     <WidgetCard title={request?.vehicle ? `Active Service: ${request.vehicle.make} ${request.vehicle.model}` : "Active Service"} delay={0.3}>
       <div className="relative mt-4">
         <div className="absolute left-[19px] top-4 bottom-4 w-[2px] bg-borderLight" />
-        
+
         <div className="space-y-8">
           {steps.map((step, i) => (
             <div key={i} className="relative flex items-center gap-5">
@@ -49,7 +49,7 @@ export function ActiveServiceTimeline({ request, onCancel }) {
               </div>
               <div className={step.status === 'pending' ? 'text-textMuted' : 'text-textMain'}>
                 <p className="font-medium text-lg">{step.label}</p>
-                {step.status === 'active' && <p className="text-sm text-accent mt-1">ETA: 8 mins</p>}
+                {step.status === 'active' && <p className="text-sm text-accent mt-1">ETA: 5 mins</p>}
               </div>
             </div>
           ))}

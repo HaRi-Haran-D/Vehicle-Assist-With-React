@@ -6,6 +6,7 @@ import { ArrowLeft, User, Wrench, Shield } from 'lucide-react';
 export function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('CUSTOMER');
@@ -20,7 +21,7 @@ export function RegisterPage() {
     }
 
     try {
-      const data = await register(username, email, password, role);
+      const data = await register(username, email, password, mobileNumber, role);
       // Wait, register returns user but not token currently in DRF if we used RegisterSerializer directly
       // Ah, RegisterView returns user and token in views.py!
       localStorage.setItem('token', data.token);
@@ -103,6 +104,22 @@ export function RegisterPage() {
                   value={email}
                   placeholder='Enter Your Email'
                   onChange={(e) => setEmail(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-textMain">
+                Mobile Number
+              </label>
+              <div className="mt-1">
+                <input
+                  type="tel"
+                  required
+                  value={mobileNumber}
+                  placeholder='Enter Your Mobile Number'
+                  onChange={(e) => setMobileNumber(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
                 />
               </div>
