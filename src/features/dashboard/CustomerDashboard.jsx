@@ -34,9 +34,14 @@ export function CustomerDashboard({ activeTab, setActiveTab }) {
   };
 
   useEffect(() => {
+    let interval;
     if (token && activeTab === 'dashboard') {
       fetchActiveRequests();
+      interval = setInterval(fetchActiveRequests, 3000); // Poll every 3 seconds
     }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [token, activeTab]);
 
   if (activeTab === 'vehicles') {

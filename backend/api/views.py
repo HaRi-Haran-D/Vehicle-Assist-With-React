@@ -25,6 +25,7 @@ class RegisterView(generics.CreateAPIView):
         })
 
 
+
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -38,12 +39,15 @@ class CustomAuthToken(ObtainAuthToken):
         })
 
 
+
 class UserProfileView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = UserSerializer
 
     def get_object(self):
         return self.request.user
+
+
 
 class VehicleListCreateView(generics.ListCreateAPIView):
     serializer_class = VehicleSerializer
@@ -55,12 +59,16 @@ class VehicleListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
+
 class VehicleDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VehicleSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Vehicle.objects.filter(user=self.request.user)
+
+
 
 class ServiceRequestListView(generics.ListCreateAPIView):
     serializer_class = ServiceRequestSerializer
@@ -75,12 +83,29 @@ class ServiceRequestListView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
+
 class ServiceRequestDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ServiceRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return ServiceRequest.objects.filter(user=self.request.user)
+        user = self.request.user
+        if hasattr(user, 'profile') and user.profile.role in ['MECHANIC', 'ADMIN']:
+            return ServiceRequest.objects.all()
+        return ServiceRequest.objects.filter(user=user)
+
+    def perform_update(self, serializer):
+        user = self.request.user
+        if hasattr(user, 'profile') and user.profile.role == 'MECHANIC':
+            if serializer.validated_data.get('status') == 'IN_PROGRESS':
+                serializer.save(mechanic=user)
+            else:
+                serializer.save()
+        else:
+            serializer.save()
+
+
 
 class MechanicStatsView(APIView):
     permission_classes = [permissions.IsAuthenticated]

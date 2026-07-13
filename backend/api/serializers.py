@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'role', 'mobile_number']
 
 
+
 class RegisterSerializer(serializers.ModelSerializer):
     role = serializers.ChoiceField(choices=UserProfile.ROLE_CHOICES, write_only=True)
     mobile_number = serializers.CharField(write_only=True, required=False, allow_blank=True)
@@ -32,16 +33,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         UserProfile.objects.create(user=user, role=role, mobile_number=mobile_number)
         return user
 
+
+
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
         fields = ['id', 'make', 'model', 'year', 'license_plate', 'photo', 'created_at']
         read_only_fields = ['id', 'created_at']
 
+
+
 class ServiceRequestSerializer(serializers.ModelSerializer):
     vehicle_details = VehicleSerializer(source='vehicle', read_only=True)
+    customer_details = UserSerializer(source='user', read_only=True)
 
     class Meta:
         model = ServiceRequest
-        fields = ['id', 'vehicle', 'vehicle_details', 'description', 'location', 'photo', 'status', 'scheduled_date', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = ['id', 'user', 'customer_details', 'vehicle', 'vehicle_details', 'mechanic', 'description', 'location', 'photo', 'status', 'cost', 'rating', 'scheduled_date', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'user', 'created_at', 'updated_at']

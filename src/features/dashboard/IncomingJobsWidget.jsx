@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WidgetCard } from '../../components/WidgetCard';
 import { MapPin, Clock, Wrench, Loader2 } from 'lucide-react';
-import { getServiceRequests } from '../../api/client';
+import { getServiceRequests, acceptServiceRequest } from '../../api/client';
 
 export function IncomingJobsWidget({ mechanicLocation }) {
   const [jobs, setJobs] = useState([]);
@@ -27,6 +27,16 @@ export function IncomingJobsWidget({ mechanicLocation }) {
     };
     fetchJobs();
   }, [mechanicLocation]);
+
+  const handleAccept = async (jobId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await acceptServiceRequest(token, jobId);
+      setJobs(jobs.filter(job => job.id !== jobId));
+    } catch (err) {
+      alert("Failed to accept job: " + err.message);
+    }
+  };
 
   // Helper to format date relative to now
   const getTimeAgo = (dateString) => {
@@ -88,7 +98,10 @@ export function IncomingJobsWidget({ mechanicLocation }) {
               </div>
 
               <div className="flex gap-3 mt-2">
-                <button className="flex-1 bg-brandYellow hover:bg-brandYellowHover text-brandDark font-bold py-2 rounded-xl transition-colors">
+                <button 
+                  onClick={() => handleAccept(job.id)}
+                  className="flex-1 bg-brandYellow hover:bg-brandYellowHover text-brandDark font-bold py-2 rounded-xl transition-colors"
+                >
                   Accept Job
                 </button>
                 <button className="flex-1 bg-black/5 hover:bg-black/10 text-textMuted font-bold py-2 rounded-xl transition-colors">

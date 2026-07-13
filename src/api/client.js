@@ -128,3 +128,18 @@ export const getMechanicStats = async (token) => {
   }
   return response.json();
 };
+
+export const acceptServiceRequest = async (token, requestId) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status: 'IN_PROGRESS' }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to accept service request');
+  }
+  return response.json();
+};

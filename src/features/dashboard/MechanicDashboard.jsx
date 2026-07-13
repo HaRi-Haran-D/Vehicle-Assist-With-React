@@ -4,6 +4,7 @@ import { IncomingJobsWidget } from './IncomingJobsWidget';
 import { ActiveServiceTimeline } from './ActiveServiceTimeline';
 import { LocationPickerMap } from './LocationPickerMap';
 import { Power, MapPin, CheckCircle, Loader2 } from 'lucide-react';
+import { MechanicActiveJobWidget } from './MechanicActiveJobWidget';
 
 export function MechanicDashboard() {
   const [isOnline, setIsOnline] = useState(false);
@@ -114,8 +115,9 @@ export function MechanicDashboard() {
         <EarningsWidget />
       </div>
 
-      {/* Incoming Requests */}
-      <div className="col-span-1 lg:col-span-3">
+      {/* Incoming Requests and Active Job */}
+      <div className="col-span-1 lg:col-span-3 space-y-6">
+        <MechanicActiveJobWidget />
         <IncomingJobsWidget mechanicLocation={mechanicLocation} />
       </div>
     </div>
