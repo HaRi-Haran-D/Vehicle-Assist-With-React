@@ -116,3 +116,15 @@ export const cancelServiceRequest = async (token, requestId) => {
   }
   return response.json();
 };
+
+export const getMechanicStats = async (token) => {
+  const response = await fetch(`${API_BASE_URL}/mechanic/stats/`, {
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch mechanic stats');
+  }
+  return response.json();
+};

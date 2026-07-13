@@ -2,7 +2,10 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from django.utils import timezone
+from django.db.models import Sum, Avg
 from .serializers import UserSerializer, RegisterSerializer, VehicleSerializer, ServiceRequestSerializer
 from .models import Vehicle, ServiceRequest
 
@@ -64,7 +67,10 @@ class ServiceRequestListView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return ServiceRequest.objects.filter(user=self.request.user).order_by('-created_at')
+        user = self.request.user
+        if hasattr(user, 'profile') and user.profile.role in ['MECHANIC', 'ADMIN']:
+            return ServiceRequest.objects.all().order_by('-created_at')
+        return ServiceRequest.objects.filter(user=user).order_by('-created_at')
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -75,3 +81,44 @@ class ServiceRequestDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return ServiceRequest.objects.filter(user=self.request.user)
+
+class MechanicStatsView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if not hasattr(user, 'profile') or user.profile.role != 'MECHANIC':
+            return Response({"error": "Unauthorized"}, status=403)
+        
+        today = timezone.now().date()
+        
+        # Today's Earnings
+        todays_jobs = ServiceRequest.objects.filter(
+            mechanic=user,
+            status='COMPLETED',
+            updated_at__date=today
+        )
+        todays_earnings = todays_jobs.aggregate(Sum('cost'))['cost__sum'] or 0
+        
+        # Jobs Completed
+        jobs_completed = ServiceRequest.objects.filter(
+            mechanic=user,
+            status='COMPLETED'
+        ).count()
+        
+        # Customer Rating
+        avg_rating = ServiceRequest.objects.filter(
+            mechanic=user,
+            status='COMPLETED',
+            rating__isnull=False
+        ).aggregate(Avg('rating'))['rating__avg'] or 0
+        
+        # Weekly Growth
+        weekly_growth = 0
+        
+        return Response({
+            "todays_earnings": todays_earnings,
+            "jobs_completed": jobs_completed,
+            "customer_rating": round(avg_rating, 1),
+            "weekly_growth": weekly_growth
+        })
