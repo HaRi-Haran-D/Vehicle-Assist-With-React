@@ -143,3 +143,19 @@ export const acceptServiceRequest = async (token, requestId) => {
   }
   return response.json();
 };
+
+export const updateServiceRequestStatus = async (token, requestId, status) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to update service request status');
+  }
+  return response.json();
+};
+

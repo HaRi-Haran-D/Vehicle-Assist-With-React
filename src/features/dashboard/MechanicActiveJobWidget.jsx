@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WidgetCard } from '../../components/WidgetCard';
-import { MapPin, User, CheckCircle, Loader2 } from 'lucide-react';
-import { getServiceRequests } from '../../api/client';
+import { MapPin, User, CheckCircle, Loader2, Navigation, Wrench } from 'lucide-react';
+import { getServiceRequests, updateServiceRequestStatus } from '../../api/client';
 
 export function MechanicActiveJobWidget() {
   const [activeJob, setActiveJob] = useState(null);
@@ -13,7 +13,7 @@ export function MechanicActiveJobWidget() {
       if (!token) return;
       const data = await getServiceRequests(token);
       // Find the job assigned to this mechanic that is in progress
-      const job = data.find(j => j.status === 'IN_PROGRESS');
+      const job = data.find(j => ['IN_PROGRESS', 'ON_THE_WAY', 'REPAIR_STARTED'].includes(j.status));
       setActiveJob(job || null);
     } catch (err) {
       console.error("Failed to fetch active job", err);
@@ -27,6 +27,25 @@ export function MechanicActiveJobWidget() {
     const interval = setInterval(fetchActiveJob, 3000); // poll every 3 seconds
     return () => clearInterval(interval);
   }, []);
+
+  const handleStatusUpdate = async (newStatus) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token || !activeJob) return;
+      
+      await updateServiceRequestStatus(token, activeJob.id, newStatus);
+      
+      if (newStatus === 'COMPLETED') {
+        setActiveJob(null);
+      } else {
+        setActiveJob(prev => ({ ...prev, status: newStatus }));
+      }
+    } catch (err) {
+      console.error("Failed to update status", err);
+      fetchActiveJob();
+    }
+  };
+
 
   if (loading) {
     return (
@@ -48,7 +67,7 @@ export function MechanicActiveJobWidget() {
         <div className="flex justify-between items-start">
           <h3 className="font-display font-bold text-xl text-textMain">{activeJob.description}</h3>
           <span className="text-xs font-bold text-brandDark bg-brandYellow px-2 py-1 rounded uppercase tracking-wider">
-            In Progress
+            {activeJob.status.replace(/_/g, ' ')}
           </span>
         </div>
         
@@ -59,15 +78,35 @@ export function MechanicActiveJobWidget() {
       </div>
 
       <div className="flex gap-3">
-        <button 
-          className="flex-1 bg-success hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2"
-          onClick={() => {
-            alert('Completing job is not fully implemented yet!');
-          }}
-        >
-          <CheckCircle size={20} />
-          Mark as Completed
-        </button>
+        {activeJob.status === 'IN_PROGRESS' && (
+          <button 
+            className="flex-1 bg-brandYellow hover:bg-yellow-500 text-brandDark font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2"
+            onClick={() => handleStatusUpdate('ON_THE_WAY')}
+          >
+            <Navigation size={20} />
+            On the Way
+          </button>
+        )}
+        
+        {activeJob.status === 'ON_THE_WAY' && (
+          <button 
+            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2"
+            onClick={() => handleStatusUpdate('REPAIR_STARTED')}
+          >
+            <Wrench size={20} />
+            Start Repair
+          </button>
+        )}
+
+        {activeJob.status === 'REPAIR_STARTED' && (
+          <button 
+            className="flex-1 bg-success hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors flex justify-center items-center gap-2"
+            onClick={() => handleStatusUpdate('COMPLETED')}
+          >
+            <CheckCircle size={20} />
+            Mark as Completed
+          </button>
+        )}
       </div>
     </WidgetCard>
   );

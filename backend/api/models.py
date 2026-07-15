@@ -33,6 +33,8 @@ class ServiceRequest(models.Model):
     STATUS_CHOICES = (
         ('PENDING', 'Pending'),
         ('IN_PROGRESS', 'In Progress'),
+        ('ON_THE_WAY', 'On the Way'),
+        ('REPAIR_STARTED', 'Repair Started'),
         ('COMPLETED', 'Completed'),
         ('CANCELLED', 'Cancelled'),
     )
