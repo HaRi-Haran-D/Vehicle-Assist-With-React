@@ -10,9 +10,9 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-display font-extrabold text-brandDark leading-tight mb-6">
-              India's Best <br />
-              <span className="text-white drop-shadow-md">Vehicle Repair</span> App
+            <h1 className="text-5xl md:text-[3.5rem] font-display font-extrabold text-brandDark leading-tight mb-6">
+              Stuck on the Road? <br />
+              <span className="text-white drop-shadow-md">We’ve Got You </span>Covered.
             </h1>
             <p className="text-lg md:text-xl text-brandDark/80 mb-8 font-medium max-w-lg">
               Get expert mechanics at your doorstep or visit our trusted garages. Fast, reliable, and transparent vehicle servicing.
