@@ -14,7 +14,7 @@ export function CustomerDashboard({ activeTab, setActiveTab }) {
   const fetchActiveRequests = async () => {
     try {
       const requests = await getServiceRequests(token);
-      const active = requests.filter(r => r.status === 'PENDING' || r.status === 'IN_PROGRESS');
+      const active = requests.filter(r => ['PENDING', 'IN_PROGRESS', 'ON_THE_WAY', 'REPAIR_STARTED'].includes(r.status));
       setActiveRequests(active);
     } catch (err) {
       console.error(err);

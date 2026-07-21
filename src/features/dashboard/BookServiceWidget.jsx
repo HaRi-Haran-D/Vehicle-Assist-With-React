@@ -67,7 +67,7 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
       setMapPosition(null);
       setPhoto(null);
       if (onServiceRequested) {
-        onServiceRequested();
+        await onServiceRequested();
       }
     } catch (err) {
       setError('Failed to submit request.');

@@ -83,9 +83,10 @@ export const addVehicle = async (token, vehicleData) => {
 
 
 export const getServiceRequests = async (token) => {
-  const response = await fetch(`${API_BASE_URL}/service-requests/`, {
+  const response = await fetch(`${API_BASE_URL}/service-requests/?t=${new Date().getTime()}`, {
     headers: {
       'Authorization': `Token ${token}`,
+      'Cache-Control': 'no-cache',
     },
   });
   if (!response.ok) {
