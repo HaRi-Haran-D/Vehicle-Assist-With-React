@@ -37,7 +37,6 @@ export function CustomerDashboard({ activeTab, setActiveTab }) {
     if (newReq) {
       setActiveRequests(prev => [newReq, ...prev]);
     }
-    await fetchActiveRequests();
   };
 
   useEffect(() => {
@@ -67,7 +66,7 @@ export function CustomerDashboard({ activeTab, setActiveTab }) {
         </div>
       ) : (
         <div className="col-span-1 lg:col-span-4 max-w-4xl">
-          <BookServiceWidget setActiveTab={setActiveTab} onServiceRequested={handleServiceRequested} />
+          <BookServiceWidget setActiveTab={setActiveTab} onServiceRequested={() => window.location.reload()} />
         </div>
       )}
 
