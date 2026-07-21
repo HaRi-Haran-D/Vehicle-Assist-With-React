@@ -135,8 +135,8 @@ class MechanicStatsView(APIView):
         avg_rating = ServiceRequest.objects.filter(
             mechanic=user,
             status='COMPLETED',
-            rating__isnull=False
-        ).aggregate(Avg('rating'))['rating__avg'] or 0
+            mechanic_rating__isnull=False
+        ).aggregate(Avg('mechanic_rating'))['mechanic_rating__avg'] or 0
         
         # Weekly Growth
         weekly_growth = 0

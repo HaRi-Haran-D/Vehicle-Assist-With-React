@@ -15,6 +15,7 @@ export const login = async (username, password) => {
   return response.json();
 };
 
+
 export const register = async (username, email, password, mobile_number, role = 'CUSTOMER') => {
   const response = await fetch(`${API_BASE_URL}/register/`, {
     method: 'POST',
@@ -29,6 +30,7 @@ export const register = async (username, email, password, mobile_number, role = 
   return response.json();
 };
 
+
 export const getProfile = async (token) => {
   const response = await fetch(`${API_BASE_URL}/profile/`, {
     headers: {
@@ -41,6 +43,7 @@ export const getProfile = async (token) => {
   return response.json();
 };
 
+
 export const getVehicles = async (token) => {
   const response = await fetch(`${API_BASE_URL}/vehicles/`, {
     headers: {
@@ -52,6 +55,7 @@ export const getVehicles = async (token) => {
   }
   return response.json();
 };
+
 
 export const addVehicle = async (token, vehicleData) => {
   const response = await fetch(`${API_BASE_URL}/vehicles/`, {
@@ -77,6 +81,7 @@ export const addVehicle = async (token, vehicleData) => {
   return response.json();
 };
 
+
 export const getServiceRequests = async (token) => {
   const response = await fetch(`${API_BASE_URL}/service-requests/`, {
     headers: {
@@ -88,6 +93,7 @@ export const getServiceRequests = async (token) => {
   }
   return response.json();
 };
+
 
 export const addServiceRequest = async (token, requestData) => {
   const response = await fetch(`${API_BASE_URL}/service-requests/`, {
@@ -102,6 +108,7 @@ export const addServiceRequest = async (token, requestData) => {
   }
   return response.json();
 };
+
 
 export const cancelServiceRequest = async (token, requestId) => {
   const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
@@ -130,6 +137,7 @@ export const getMechanicStats = async (token) => {
   return response.json();
 };
 
+
 export const acceptServiceRequest = async (token, requestId) => {
   const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
     method: 'PATCH',
@@ -145,6 +153,7 @@ export const acceptServiceRequest = async (token, requestId) => {
   return response.json();
 };
 
+
 export const updateServiceRequestStatus = async (token, requestId, status) => {
   const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
     method: 'PATCH',
@@ -156,6 +165,22 @@ export const updateServiceRequestStatus = async (token, requestId, status) => {
   });
   if (!response.ok) {
     throw new Error('Failed to update service request status');
+  }
+  return response.json();
+};
+
+
+export const updateServiceRequestData = async (token, requestId, data) => {
+  const response = await fetch(`${API_BASE_URL}/service-requests/${requestId}/`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to update service request data');
   }
   return response.json();
 };

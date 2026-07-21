@@ -5,8 +5,9 @@ import { ActiveServiceTimeline } from './ActiveServiceTimeline';
 import { LocationPickerMap } from './LocationPickerMap';
 import { Power, MapPin, CheckCircle, Loader2 } from 'lucide-react';
 import { MechanicActiveJobWidget } from './MechanicActiveJobWidget';
+import { ServiceHistorySection } from './ServiceHistorySection';
 
-export function MechanicDashboard() {
+export function MechanicDashboard({ activeTab, setActiveTab }) {
   const [isOnline, setIsOnline] = useState(false);
   const [mechanicLocation, setMechanicLocation] = useState(null);
   const [isLocationConfirmed, setIsLocationConfirmed] = useState(false);
@@ -106,6 +107,10 @@ export function MechanicDashboard() {
         </div>
       </div>
     );
+  }
+
+  if (activeTab === 'history') {
+    return <ServiceHistorySection />;
   }
 
   return (

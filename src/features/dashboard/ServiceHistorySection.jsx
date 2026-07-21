@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getServiceRequests } from '../../api/client';
 import { ClipboardList, Loader2, Calendar } from 'lucide-react';
 import { WidgetCard } from '../../components/WidgetCard';
+import { RatingWidget } from './RatingWidget';
 
 export function ServiceHistorySection() {
   const [requests, setRequests] = useState([]);
@@ -42,7 +43,7 @@ export function ServiceHistorySection() {
         ) : (
           requests.map(req => (
             <WidgetCard key={req.id} className="relative overflow-hidden p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <div className="flex items-center gap-3 mb-2">
                   <h3 className="text-xl font-display font-bold text-textMain">
                     {req.vehicle_details ? `${req.vehicle_details.year} ${req.vehicle_details.make} ${req.vehicle_details.model}` : 'Unknown Vehicle'}
@@ -54,9 +55,23 @@ export function ServiceHistorySection() {
                     {req.status.replace('_', ' ')}
                   </span>
                 </div>
-                <p className="text-textMuted text-sm line-clamp-2">{req.description || "No description provided."}</p>
+                <p className="text-textMuted text-sm line-clamp-2 mb-2">{req.description || "No description provided."}</p>
+                {req.status === 'COMPLETED' && (
+                  <RatingWidget 
+                    request={req} 
+                    isCustomer={localStorage.getItem('userRole') !== 'MECHANIC'} 
+                    onRated={() => {
+                      // Optionally refetch or just let the state update handled by fetchRequests on interval if any, or reload
+                      const fetchRequests = async () => {
+                        const data = await getServiceRequests(token);
+                        setRequests(data);
+                      };
+                      fetchRequests();
+                    }}
+                  />
+                )}
               </div>
-              <div className="flex items-center gap-2 text-sm text-textMuted whitespace-nowrap bg-secondary px-4 py-2 rounded-lg border border-borderLight">
+              <div className="flex items-center gap-2 text-sm text-textMuted whitespace-nowrap bg-secondary px-4 py-2 rounded-lg border border-borderLight self-start md:self-center">
                 <Calendar size={16} />
                 <span>{new Date(req.created_at).toLocaleDateString()}</span>
               </div>

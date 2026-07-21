@@ -23,7 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        role = validated_data.pop('role', 'CUSTOMER')
+        role = validated_data.pop('role', 'CUSTOMER'),
         mobile_number = validated_data.pop('mobile_number', '')
         user = User.objects.create_user(
             username=validated_data['username'],
@@ -49,5 +49,5 @@ class ServiceRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ServiceRequest
-        fields = ['id', 'user', 'customer_details', 'vehicle', 'vehicle_details', 'mechanic', 'description', 'location', 'latitude', 'longitude', 'photo', 'status', 'cost', 'rating', 'scheduled_date', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'customer_details', 'vehicle', 'vehicle_details', 'mechanic', 'description', 'location', 'latitude', 'longitude', 'photo', 'status', 'cost', 'mechanic_rating', 'customer_rating', 'scheduled_date', 'created_at', 'updated_at']
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']

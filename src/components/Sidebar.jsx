@@ -9,6 +9,7 @@ const getMenuItems = (role) => {
       { icon: Home, label: 'Dashboard', id: 'dashboard' },
       { icon: Briefcase, label: 'Job Board', id: 'job_board' },
       { icon: Wrench, label: 'Active Jobs', id: 'active_jobs' },
+      { icon: Clock, label: 'Service History', id: 'history' },
       { icon: IndianRupee, label: 'Earnings', id: 'earnings' },
       { icon: MessageSquare, label: 'Messages', id: 'messages' },
     ];
