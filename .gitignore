@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment files
+.env
+.env.*
+backend/.env
 
 # React
 node_modules/
