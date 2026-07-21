@@ -60,14 +60,14 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
         formData.append('photo', photo);
       }
 
-      await addServiceRequest(token, formData);
+      const newRequest = await addServiceRequest(token, formData);
       setMessage('Service request submitted successfully!');
       setDescription('');
       setLocation('');
       setMapPosition(null);
       setPhoto(null);
       if (onServiceRequested) {
-        await onServiceRequested();
+        await onServiceRequested(newRequest);
       }
     } catch (err) {
       setError('Failed to submit request.');
