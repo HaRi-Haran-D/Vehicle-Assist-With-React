@@ -52,6 +52,10 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
       formData.append('vehicle', selectedVehicle);
       formData.append('description', description);
       formData.append('location', location);
+      if (mapPosition) {
+        formData.append('latitude', mapPosition.lat);
+        formData.append('longitude', mapPosition.lng);
+      }
       if (photo) {
         formData.append('photo', photo);
       }
@@ -60,6 +64,7 @@ export function BookServiceWidget({ setActiveTab, onServiceRequested }) {
       setMessage('Service request submitted successfully!');
       setDescription('');
       setLocation('');
+      setMapPosition(null);
       setPhoto(null);
       if (onServiceRequested) {
         onServiceRequested();

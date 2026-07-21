@@ -43,6 +43,8 @@ class ServiceRequest(models.Model):
     mechanic = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_jobs')
     description = models.TextField()
     location = models.CharField(max_length=255, default='Not specified')
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     photo = models.ImageField(upload_to='service_requests/', null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)

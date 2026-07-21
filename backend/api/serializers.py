@@ -49,5 +49,5 @@ class ServiceRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ServiceRequest
-        fields = ['id', 'user', 'customer_details', 'vehicle', 'vehicle_details', 'mechanic', 'description', 'location', 'photo', 'status', 'cost', 'rating', 'scheduled_date', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'customer_details', 'vehicle', 'vehicle_details', 'mechanic', 'description', 'location', 'latitude', 'longitude', 'photo', 'status', 'cost', 'rating', 'scheduled_date', 'created_at', 'updated_at']
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
