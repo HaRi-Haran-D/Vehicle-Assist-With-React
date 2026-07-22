@@ -177,11 +177,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+from corsheaders.defaults import default_headers
+
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://vehicleassist-bay.vercel.app",
+]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "cache-control",
 ]
 
 # DRF configuration
