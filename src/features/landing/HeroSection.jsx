@@ -1,8 +1,20 @@
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function HeroSection() {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem('token');
+
+  const handleBookService = () => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
-    <section className="pt-24 pb-15 md:pt-25 md:pb-28 bg-brandYellow relative overflow-hidden">
+    <section className="pt-28 pb-16 md:pt-32 md:pb-28 bg-brandYellow relative overflow-hidden">
       {/* Abstract background shapes */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-white opacity-10 transform -skew-x-12 translate-x-20"></div>
 
@@ -10,17 +22,21 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-[3.5rem] font-display font-extrabold text-brandDark leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-[3.5rem] font-display font-extrabold text-brandDark leading-tight mb-6">
               Stuck on the Road? <br />
               <span className="text-white drop-shadow-md">We’ve Got You </span>Covered.
             </h1>
-            <p className="text-lg md:text-xl text-brandDark/80 mb-8 font-medium max-w-lg">
+            <p className="text-base sm:text-lg md:text-xl text-brandDark/85 mb-8 font-medium max-w-lg leading-relaxed">
               Get expert mechanics at your doorstep or visit our trusted garages. Fast, reliable, and transparent vehicle servicing.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white/30 backdrop-blur-sm text-brandDark border border-brandDark/20 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/50 transition-all flex items-center justify-center">
-                Book a Service
+              <button 
+                onClick={handleBookService}
+                className="bg-brandDark text-white hover:bg-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 group cursor-pointer active:scale-95 border-2 border-brandDark"
+              >
+                <span>Book a Service</span>
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
