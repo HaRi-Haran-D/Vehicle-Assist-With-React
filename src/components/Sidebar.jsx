@@ -7,8 +7,6 @@ const getMenuItems = (role) => {
   if (role === 'MECHANIC') {
     return [
       { icon: Home, label: 'Dashboard', id: 'dashboard' },
-      { icon: Briefcase, label: 'Job Board', id: 'job_board' },
-      { icon: Wrench, label: 'Active Jobs', id: 'active_jobs' },
       { icon: Clock, label: 'Service History', id: 'history' },
       { icon: IndianRupee, label: 'Earnings', id: 'earnings' },
       { icon: MessageSquare, label: 'Messages', id: 'messages' },
@@ -17,7 +15,7 @@ const getMenuItems = (role) => {
   return [
     { icon: Home, label: 'Dashboard', id: 'dashboard' },
     { icon: Car, label: 'My Vehicles', id: 'vehicles' },
-    { icon: Wrench, label: 'Service History', id: 'history' },
+    { icon: Wrench, label: 'Request History', id: 'history' },
     { icon: MessageSquare, label: 'Messages', id: 'messages' },
   ];
 };
