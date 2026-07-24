@@ -84,7 +84,7 @@ export function Header() {
                   <Link to="/login" className="block text-center px-4 py-2.5 text-brandDark font-semibold hover:bg-slate-100 rounded-full transition-colors" onClick={() => setIsOpen(false)}>
                     Login
                   </Link>
-                  <Link to="/register" className="w-full text-center block px-6 py-3 text-white bg-brandDark font-bold rounded-full shadow-md hover:bg-black transition-all" onClick={() => setIsOpen(false)}>
+                  <Link to="/register" className="w-fit mx-auto text-center block px-6 py-3 text-white bg-brandDark font-bold rounded-full shadow-md hover:bg-black transition-all" onClick={() => setIsOpen(false)}>
                     Register
                   </Link>
                 </>
