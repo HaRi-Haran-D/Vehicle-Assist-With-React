@@ -4,7 +4,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
+            <div className="flex items-center gap-3 mb-6">
+              <img src="/LogoWithoutBackground.png" alt="VehicleRepair Logo" className="h-10 w-auto object-contain" />
               <span className="font-display font-bold text-2xl tracking-tight">Vehicle<span className="text-brandYellow">Repair</span></span>
             </div>
             <p className="text-white/60 mb-6 leading-relaxed">

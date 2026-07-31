@@ -18,8 +18,9 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center gap-2">
-            <Link to="/" className="font-display font-bold text-2xl tracking-tight text-brandDark">
-              Vehicle<span className="text-brandYellow">Assist</span>
+            <Link to="/" className="flex items-center gap-3 font-display font-bold text-2xl tracking-tight text-brandDark group">
+              <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+              <span>Vehicle<span className="text-brandYellow">Assist</span></span>
             </Link>
           </div>
 

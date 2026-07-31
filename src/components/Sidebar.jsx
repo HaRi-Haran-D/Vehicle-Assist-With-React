@@ -40,9 +40,12 @@ export function Sidebar({ active, setActive, mobileOpen, setMobileOpen }) {
   const renderContent = () => (
     <>
       <div className="p-6 pt-8 flex items-center justify-between gap-3">
-        <span className="font-display font-bold text-xl tracking-tight text-textMain">
-          Vehicle<span className="text-brandYellow">Assist</span>
-        </span>
+        <div className="flex items-center gap-3">
+          <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="h-9 w-auto object-contain" />
+          <span className="font-display font-bold text-xl tracking-tight text-textMain">
+            Vehicle<span className="text-brandYellow">Assist</span>
+          </span>
+        </div>
         {setMobileOpen && (
           <button
             onClick={() => setMobileOpen(false)}

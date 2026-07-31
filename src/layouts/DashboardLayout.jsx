@@ -17,9 +17,12 @@ export function DashboardLayout({ children, activeTab, setActiveTab }) {
           >
             <Menu size={24} />
           </button>
-          <span className="font-display font-bold text-xl tracking-tight text-textMain">
-            Vehicle<span className="text-brandYellow">Assist</span>
-          </span>
+          <div className="flex items-center gap-2">
+            <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="h-8 w-auto object-contain" />
+            <span className="font-display font-bold text-xl tracking-tight text-textMain">
+              Vehicle<span className="text-brandYellow">Assist</span>
+            </span>
+          </div>
         </div>
       </header>
 

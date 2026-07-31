@@ -3,27 +3,27 @@ import { Wrench, Settings, Search, PhoneCall } from 'lucide-react';
 export function ServicesSection() {
   const services = [
     {
-      title: 'General Service',
-      description: 'Comprehensive checkup and oil change',
-      icon: Settings,
+      title: 'Bike-Taxi & Two-Wheeler',
+      description: 'Quick roadside assistance & service for 2-wheelers',
+      image: '/assets/bike_taxi_1783519431068.png',
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Engine Repair',
-      description: 'Expert diagnostics and engine overhauls',
-      icon: Wrench,
+      title: 'Auto-Rickshaw Repair',
+      description: 'Dedicated mechanic dispatch for three-wheelers',
+      image: '/assets/auto_rickshaw_1783519442146.png',
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Inspections',
-      description: 'Pre-purchase and safety vehicle inspections',
-      icon: Search,
+      title: 'Cab & Car Maintenance',
+      description: 'Full inspection, engine diagnostics & oil change',
+      image: '/assets/cab_car_1783519453146.png',
       bgColor: 'bg-secondary'
     },
     {
-      title: 'Roadside Assist',
-      description: '24/7 emergency towing and support',
-      icon: PhoneCall,
+      title: 'Express Parts & Towing',
+      description: '24/7 emergency pickup, parts delivery & roadside support',
+      image: '/assets/parcel_box_1783519465989.png',
       bgColor: 'bg-secondary'
     }
   ];
@@ -46,8 +46,8 @@ export function ServicesSection() {
                 <h3 className="text-2xl sm:text-3xl font-bold text-brandDark mb-2 font-display">{service.title}</h3>
                 <p className="text-brandDark/70 font-medium text-sm sm:text-base">{service.description}</p>
               </div>
-              <div className="w-24 h-24 sm:w-32 sm:h-32 relative flex-shrink-0 z-10 flex items-center justify-center text-brandDark/80 group-hover:text-brandDark transition-colors">
-                <service.icon size={80} strokeWidth={1.5} className="group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500" />
+              <div className="w-24 h-24 sm:w-32 sm:h-32 relative flex-shrink-0 z-10 flex items-center justify-center">
+                <img src={service.image} alt={service.title} className="w-full h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 drop-shadow-md" />
               </div>
             </div>
           ))}

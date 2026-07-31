@@ -48,9 +48,8 @@ export function EarnSection() {
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
               </button>
 
-              <div className="w-16 h-16 sm:w-20 sm:h-20 aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center relative p-2.5 sm:p-3 shadow-xl shrink-0">
-                <div className="absolute inset-0 bg-gradient-to-tr from-brandYellow/20 to-transparent rounded-full animate-spin-slow"></div>
-                <Wrench className="w-8 h-8 sm:w-10 sm:h-10 text-brandYellow drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] transform -rotate-12" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 aspect-square bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center relative p-1 shadow-xl shrink-0 overflow-hidden">
+                <img src="/partner_mechanic.png" alt="Partner Mechanic" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
 
@@ -64,13 +63,10 @@ export function EarnSection() {
             </button>
           </div>
 
-          {/* Desktop Wrench Icon Circle (>= lg) */}
+          {/* Desktop Partner Mechanic Image Circle (>= lg) */}
           <div className="hidden lg:flex w-1/2 relative z-10 justify-center items-center">
-            <div className="w-72 h-72 lg:w-80 lg:h-80 aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center relative p-8 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-tr from-brandYellow/20 to-transparent rounded-full animate-spin-slow"></div>
-              <div className="w-full h-full relative z-10 flex items-center justify-center">
-                <Wrench className="w-28 h-28 lg:w-32 lg:h-32 text-brandYellow drop-shadow-[0_15px_35px_rgba(0,0,0,0.5)] transform -rotate-12 transition-transform hover:scale-110 duration-300" />
-              </div>
+            <div className="w-72 h-72 lg:w-80 lg:h-80 aspect-square bg-white/10 backdrop-blur-md border-4 border-white/20 rounded-full flex items-center justify-center relative p-2 shadow-2xl overflow-hidden group">
+              <img src="/partner_mechanic.png" alt="Partner Mechanic" className="w-full h-full object-cover rounded-full relative z-10 transition-transform duration-500 group-hover:scale-105" />
             </div>
           </div>
 

@@ -45,7 +45,7 @@ export function HeroSection() {
             <div className="w-[120%] aspect-square bg-white/20 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
             {/* Real world mechanic image */}
             <img
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=80"
+              src="/assets/repair_bike_car.png"
               alt="Mechanic repairing vehicle"
               className="w-full max-w-lg mx-auto h-[450px] object-cover rounded-3xl relative z-10 shadow-2xl hover:-translate-y-4 transition-transform duration-500 border-4 border-white/20"
             />

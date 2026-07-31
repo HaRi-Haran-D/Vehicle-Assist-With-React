@@ -28,7 +28,8 @@ export function LoginPage() {
       </Link>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-2xl sm:px-10 border border-borderLight">
+        <div className="bg-white py-8 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-2xl sm:px-10 border border-borderLight flex flex-col items-center">
+          <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="h-14 w-auto object-contain mb-3" />
           <h2 className="text-center text-3xl py-2 font-display font-bold text-brandDark">
             Sign in to your account
           </h2>
