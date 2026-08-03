@@ -9,18 +9,21 @@ export function ServiceHistorySection() {
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem('token');
+  const role = localStorage.getItem('userRole');
+
+  const fetchRequests = async () => {
+    try {
+      const isMechanic = role === 'MECHANIC';
+      const data = await getServiceRequests(token, isMechanic ? { accepted_only: 'true' } : {});
+      setRequests(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const data = await getServiceRequests(token);
-        setRequests(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
     if (token) fetchRequests();
   }, [token]);
 
@@ -61,11 +64,6 @@ export function ServiceHistorySection() {
                     request={req} 
                     isCustomer={localStorage.getItem('userRole') !== 'MECHANIC'} 
                     onRated={() => {
-                      // Optionally refetch or just let the state update handled by fetchRequests on interval if any, or reload
-                      const fetchRequests = async () => {
-                        const data = await getServiceRequests(token);
-                        setRequests(data);
-                      };
                       fetchRequests();
                     }}
                   />

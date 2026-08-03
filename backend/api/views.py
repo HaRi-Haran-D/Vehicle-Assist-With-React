@@ -77,7 +77,10 @@ class ServiceRequestListView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         if hasattr(user, 'profile') and user.profile.role in ['MECHANIC', 'ADMIN']:
-            return ServiceRequest.objects.all().order_by('-created_at')
+            queryset = ServiceRequest.objects.all().order_by('-created_at')
+            if self.request.query_params.get('accepted_only') == 'true':
+                queryset = queryset.filter(mechanic=user)
+            return queryset
         return ServiceRequest.objects.filter(user=user).order_by('-created_at')
 
     def perform_create(self, serializer):

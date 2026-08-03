@@ -1,5 +1,16 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const getBaseUrl = () => {
+  let envUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+  envUrl = envUrl.trim();
+  if (!envUrl) {
+    return 'http://localhost:8000/api';
+  }
+  if (!envUrl.endsWith('/api') && !envUrl.endsWith('/api/')) {
+    envUrl = `${envUrl.replace(/\/$/, '')}/api`;
+  }
+  return envUrl.replace(/\/$/, '');
+};
+
+const API_BASE_URL = getBaseUrl();
 
 export const login = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/login/`, {
@@ -82,8 +93,9 @@ export const addVehicle = async (token, vehicleData) => {
 };
 
 
-export const getServiceRequests = async (token) => {
-  const response = await fetch(`${API_BASE_URL}/service-requests/?t=${new Date().getTime()}`, {
+export const getServiceRequests = async (token, params = {}) => {
+  const query = new URLSearchParams({ t: new Date().getTime(), ...params }).toString();
+  const response = await fetch(`${API_BASE_URL}/service-requests/?${query}`, {
     headers: {
       'Authorization': `Token ${token}`,
     },

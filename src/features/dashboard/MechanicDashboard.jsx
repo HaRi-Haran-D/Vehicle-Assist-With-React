@@ -35,6 +35,27 @@ export function MechanicDashboard({ activeTab, setActiveTab }) {
     );
   };
 
+  if (activeTab === 'history') {
+    return <ServiceHistorySection />;
+  }
+
+  if (activeTab === 'earnings') {
+    return (
+      <div className="max-w-4xl">
+        <EarningsWidget />
+      </div>
+    );
+  }
+
+  if (activeTab === 'messages') {
+    return (
+      <div className="bg-white p-8 rounded-2xl border border-borderLight shadow-sm text-center">
+        <h2 className="text-2xl font-bold font-display text-textMain mb-2">Messages</h2>
+        <p className="text-textMuted">No messages yet.</p>
+      </div>
+    );
+  }
+
   if (!isOnline) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] bg-white rounded-2xl border border-borderLight shadow-sm p-8 text-center">
@@ -107,10 +128,6 @@ export function MechanicDashboard({ activeTab, setActiveTab }) {
         </div>
       </div>
     );
-  }
-
-  if (activeTab === 'history') {
-    return <ServiceHistorySection />;
   }
 
   return (
