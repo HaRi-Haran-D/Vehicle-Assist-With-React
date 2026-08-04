@@ -13,6 +13,11 @@ export function MechanicDashboard({ activeTab, setActiveTab }) {
   const [isLocationConfirmed, setIsLocationConfirmed] = useState(false);
   const [gettingLocation, setGettingLocation] = useState(false);
   const [locationError, setLocationError] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleJobAccepted = () => {
+    setRefreshKey(prev => prev + 1);
+  };
 
   const handleGetLocation = () => {
     setGettingLocation(true);
@@ -139,8 +144,8 @@ export function MechanicDashboard({ activeTab, setActiveTab }) {
 
       {/* Incoming Requests and Active Job */}
       <div className="col-span-1 lg:col-span-3 space-y-6">
-        <MechanicActiveJobWidget />
-        <IncomingJobsWidget mechanicLocation={mechanicLocation} />
+        <MechanicActiveJobWidget refreshTrigger={refreshKey} onJobUpdated={handleJobAccepted} />
+        <IncomingJobsWidget mechanicLocation={mechanicLocation} onJobAccepted={handleJobAccepted} />
       </div>
     </div>
   );

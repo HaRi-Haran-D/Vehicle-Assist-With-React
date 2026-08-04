@@ -3,7 +3,7 @@ import { WidgetCard } from '../../components/WidgetCard';
 import { MapPin, Clock, Wrench, Loader2 } from 'lucide-react';
 import { getServiceRequests, acceptServiceRequest } from '../../api/client';
 
-export function IncomingJobsWidget({ mechanicLocation }) {
+export function IncomingJobsWidget({ mechanicLocation, onJobAccepted }) {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,6 +33,9 @@ export function IncomingJobsWidget({ mechanicLocation }) {
       const token = localStorage.getItem('token');
       await acceptServiceRequest(token, jobId);
       setJobs(jobs.filter(job => job.id !== jobId));
+      if (onJobAccepted) {
+        onJobAccepted();
+      }
     } catch (err) {
       alert("Failed to accept job: " + err.message);
     }
