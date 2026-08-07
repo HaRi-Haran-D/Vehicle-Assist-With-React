@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../../api/client';
-import { ArrowLeft, User, Wrench, Shield } from 'lucide-react';
+import { ArrowLeft, User, Wrench, ShieldCheck, Clock, MapPin } from 'lucide-react';
 
 export function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -22,8 +22,6 @@ export function RegisterPage() {
 
     try {
       const data = await register(username, email, password, mobileNumber, role);
-      // Wait, register returns user but not token currently in DRF if we used RegisterSerializer directly
-      // Ah, RegisterView returns user and token in views.py!
       localStorage.setItem('token', data.token);
       localStorage.setItem('userRole', data.user.role);
       navigate('/dashboard');
@@ -33,160 +31,204 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-primary">
-      <Link to="/" className="absolute top-8 left-8 flex items-center text-brandDark hover:text-brandYellow transition-colors font-medium">
-        <ArrowLeft className="mr-2" size={20} /> Back to Home
-      </Link>
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-primary">
+      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-borderLight overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[680px]">
+        {/* Left Panel: Logo, Name & Slogan */}
+        <div className="lg:col-span-5 bg-gradient-to-br from-brandDark via-[#182333] to-brandBlue text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
+          {/* Subtle Glow & Background Accents */}
+          <div className="absolute -top-24 -left-24 w-72 h-72 bg-brandYellow/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-brandBlue/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-2xl sm:px-10 border border-borderLight flex flex-col items-center">
-          <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="h-14 w-auto object-contain mb-3" />
-          <h2 className="text-center text-3xl py-2 font-display font-bold text-brandDark">
-            Create an Account
-          </h2>
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            {error && (
-              <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm text-center">
-                {error}
-              </div>
-            )}
+          {/* Top Nav */}
+          <div className="relative z-10">
+            <Link to="/" className="inline-flex items-center text-white/80 hover:text-brandYellow transition-colors text-sm font-medium">
+              <ArrowLeft className="mr-2" size={18} /> Back to Home
+            </Link>
+          </div>
 
-            {/* Role Selection */}
-            <div>
-              {/* <label className="block text-sm font-medium text-textMain mb-2">
-                I am a...
-              </label> */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setRole('CUSTOMER')}
-                  className={`flex flex-col items-center p-3 rounded-xl border transition-all ${role === 'CUSTOMER' ? 'border-brandYellow bg-brandYellow/10 text-brandDark' : 'border-borderDark hover:border-brandYellow/50 text-textMuted'
-                    }`}
-                >
-                  <User size={24} className="mb-1" />
-                  <span className="text-xs font-semibold">Customer</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('MECHANIC')}
-                  className={`flex flex-col items-center p-3 rounded-xl border transition-all ${role === 'MECHANIC' ? 'border-brandYellow bg-brandYellow/10 text-brandDark' : 'border-borderDark hover:border-brandYellow/50 text-textMuted'
-                    }`}
-                >
-                  <Wrench size={24} className="mb-1" />
-                  <span className="text-xs font-semibold">Mechanic</span>
-                </button>
-              </div>
+          {/* Center Brand Identity */}
+          <div className="my-8 relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="w-20 h-20 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-3.5 mb-6 flex items-center justify-center shadow-lg">
+              <img src="/LogoWithoutBackground.png" alt="VehicleAssist Logo" className="w-full h-full object-contain" />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-textMain">
-                Username
-              </label>
-              <div className="mt-1">
+            <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white mb-3">
+              Vehicle<span className="text-brandYellow">Assist</span>
+            </h1>
+
+            <p className="text-white/80 text-base sm:text-lg font-normal leading-relaxed max-w-sm">
+              On-Demand Vehicle Repair & Emergency Breakdown Assistance Anywhere, Anytime.
+            </p>
+
+            <div className="mt-8 space-y-3 hidden sm:block">
+              <div className="flex items-center gap-3 text-sm text-white/70">
+                <div className="p-1.5 rounded-lg bg-brandYellow/10 text-brandYellow">
+                  <Clock size={16} />
+                </div>
+                <span>Fast 24/7 Emergency Assistance</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-white/70">
+                <div className="p-1.5 rounded-lg bg-brandYellow/10 text-brandYellow">
+                  <ShieldCheck size={16} />
+                </div>
+                <span>Verified Mechanics & Transparent Pricing</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-white/70">
+                <div className="p-1.5 rounded-lg bg-brandYellow/10 text-brandYellow">
+                  <MapPin size={16} />
+                </div>
+                <span>Real-Time Live Mechanic Tracking</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Footer Quote */}
+          <div className="relative z-10 pt-6 border-t border-white/10 text-xs text-white/50 text-center lg:text-left">
+            Join thousands of users getting instant vehicle repairs.
+          </div>
+        </div>
+
+        {/* Right Panel: Register Form */}
+        <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-center bg-white">
+          <div className="max-w-md w-full mx-auto my-auto py-2">
+            <div className="mb-5">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-brandDark">
+                Create an Account
+              </h2>
+              <p className="text-textMuted text-xs sm:text-sm mt-1">
+                Select your account type and fill in your details to get started.
+              </p>
+            </div>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              {error && (
+                <div className="bg-red-50 text-red-600 p-3.5 rounded-xl text-sm font-medium text-center border border-red-100">
+                  {error}
+                </div>
+              )}
+
+              {/* Role Selection */}
+              <div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setRole('CUSTOMER')}
+                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border font-medium text-sm transition-all ${role === 'CUSTOMER'
+                        ? 'border-brandYellow bg-brandYellow/15 text-brandDark font-semibold shadow-sm'
+                        : 'border-borderDark hover:border-brandYellow/50 text-textMuted'
+                      }`}
+                  >
+                    <User size={18} />
+                    <span>Customer</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole('MECHANIC')}
+                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border font-medium text-sm transition-all ${role === 'MECHANIC'
+                        ? 'border-brandYellow bg-brandYellow/15 text-brandDark font-semibold shadow-sm'
+                        : 'border-borderDark hover:border-brandYellow/50 text-textMuted'
+                      }`}
+                  >
+                    <Wrench size={18} />
+                    <span>Mechanic</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-textMain mb-1">
+                  Username
+                </label>
                 <input
                   type="text"
                   required
                   value={username}
-                  placeholder='Enter Your Name'
+                  placeholder="Enter Your Name"
                   onChange={(e) => setUsername(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
+                  className="appearance-none block w-full px-3.5 py-2.5 border border-borderDark rounded-xl shadow-sm placeholder:text-textMuted/60 focus:outline-none focus:ring-2 focus:ring-brandYellow focus:border-brandYellow transition-all text-sm"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-textMain">
-                Email
-              </label>
-              <div className="mt-1">
+              <div>
+                <label className="block text-xs font-semibold text-textMain mb-1">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   required
                   value={email}
-                  placeholder='Enter Your Email'
+                  placeholder="Enter Your Email"
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
+                  className="appearance-none block w-full px-3.5 py-2.5 border border-borderDark rounded-xl shadow-sm placeholder:text-textMuted/60 focus:outline-none focus:ring-2 focus:ring-brandYellow focus:border-brandYellow transition-all text-sm"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-textMain">
-                Mobile Number
-              </label>
-              <div className="mt-1">
+              <div>
+                <label className="block text-xs font-semibold text-textMain mb-1">
+                  Mobile Number
+                </label>
                 <input
                   type="tel"
                   required
                   value={mobileNumber}
-                  placeholder='Enter Your Mobile Number'
+                  placeholder="Enter Your Mobile Number"
                   onChange={(e) => setMobileNumber(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
+                  className="appearance-none block w-full px-3.5 py-2.5 border border-borderDark rounded-xl shadow-sm placeholder:text-textMuted/60 focus:outline-none focus:ring-2 focus:ring-brandYellow focus:border-brandYellow transition-all text-sm"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-textMain">
-                Password
-              </label>
-              <div className="mt-1">
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  placeholder='Enter Your Password'
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
-                />
-              </div>
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-textMain mb-1">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="appearance-none block w-full px-3.5 py-2.5 border border-borderDark rounded-xl shadow-sm placeholder:text-textMuted/60 focus:outline-none focus:ring-2 focus:ring-brandYellow focus:border-brandYellow transition-all text-sm"
+                  />
+                </div>
 
-            <div>
-              <label className="block text-sm font-medium text-textMain">
-                Confirm Password
-              </label>
-              <div className="mt-1">
-                <input
-                  type="password"
-                  required
-                  value={confirmPassword}
-                  placeholder='Confirm Your Password'
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-borderDark rounded-lg shadow-sm focus:outline-none focus:ring-brandYellow focus:border-brandYellow transition-colors"
-                />
+                <div>
+                  <label className="block text-xs font-semibold text-textMain mb-1">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={confirmPassword}
+                    placeholder="Confirm"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="appearance-none block w-full px-3.5 py-2.5 border border-borderDark rounded-xl shadow-sm placeholder:text-textMuted/60 focus:outline-none focus:ring-2 focus:ring-brandYellow focus:border-brandYellow transition-all text-sm"
+                  />
+                </div>
               </div>
-            </div>
 
-            {confirmPassword && password !== confirmPassword && (
-              <div className="text-red-500 text-sm mt-1 mb-2 font-medium">
-                Passwords do not match.
-              </div>
-            )}
-            <div>
-              <button
-                type="submit"
-                disabled={password !== confirmPassword && confirmPassword !== ''}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-brandDark bg-brandYellow hover:bg-brandYellowHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brandYellow transition-colors mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Create Account
-              </button>
-            </div>
-          </form>
+              {confirmPassword && password !== confirmPassword && (
+                <p className="text-red-500 text-xs font-medium">
+                  Passwords do not match.
+                </p>
+              )}
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-borderLight" />
+              <div>
+                <button
+                  type="submit"
+                  disabled={password !== confirmPassword && confirmPassword !== ''}
+                  className="w-full flex justify-center py-3 px-4 rounded-xl shadow-md text-sm font-semibold text-brandDark bg-brandYellow hover:bg-brandYellowHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brandYellow transition-all mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Create Account
+                </button>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-textMuted">
-                  Already have an account?
-                </span>
-                <Link to="/login" className="font-medium text-blue-600 hover:text-blue-700 transition-colors">
-                  Sign in
-                </Link>
-              </div>
+            </form>
+
+            <div className="mt-6 text-center text-sm">
+              <span className="text-textMuted">Already have an account? </span>
+              <Link to="/login" className="font-semibold text-blue-600 hover:text-blue-700 transition-colors ml-1">
+                Sign in
+              </Link>
             </div>
           </div>
         </div>
@@ -194,3 +236,4 @@ export function RegisterPage() {
     </div>
   );
 }
+
